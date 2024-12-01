@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+	<PropertyGroup>
+		<ProgramFolder>D:\Programme\Steam\steamapps\common\</ProgramFolder>
+		<GameManaged>$(ProgramFolder)Stacklands\Stacklands_Data\Managed</GameManaged>
+		<GameManaged Condition="!Exists('$(GameManaged)')">..\..\..\@non-backup\Stacklands sources</GameManaged>
+		<ModFolder>$([System.Environment]::GetFolderPath(SpecialFolder.ApplicationData))\..\LocalLow\sokpop\Stacklands\Mods</ModFolder>
+		<ModFolder Condition="!Exists('$(ModFolder)')">..\..\..\@non-backup\Stacklands sources</ModFolder>
+	</PropertyGroup>
+</Project>

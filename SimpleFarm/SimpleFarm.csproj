@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Version>1.0.0.11</Version>
+		<AssemblyName>$(ProjectName)</AssemblyName>
+		<RootNamespace>$(ProjectName)NS</RootNamespace>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Private="false" Include="0Harmony" HintPath="$(GameManaged)/0Harmony.dll" />
+		<Reference Private="false" Include="GameScripts" HintPath="$(GameManaged)/GameScripts.dll" />
+		<Reference Private="false" Include="Mono.Cecil" HintPath="$(GameManaged)/Mono.Cecil.dll" />
+		<Reference Private="false" Include="MonoMod.RuntimeDetour" HintPath="$(GameManaged)/MonoMod.RuntimeDetour.dll" />
+		<Reference Private="false" Include="MonoMod.Utils" HintPath="$(GameManaged)/MonoMod.Utils.dll" />
+		<Reference Private="false" Include="Newtonsoft.Json" HintPath="$(GameManaged)/Newtonsoft.Json.dll" />
+		<Reference Private="false" Include="ShapesRuntime" HintPath="$(GameManaged)/ShapesRuntime.dll" />
+		<Reference Private="false" Include="SokLoc" HintPath="$(GameManaged)/SokLoc.dll" />
+		<Reference Private="false" Include="SokSheet" HintPath="$(GameManaged)/SokSheet.dll" />
+		<Reference Private="false" Include="Unity.InputSystem" HintPath="$(GameManaged)/Unity.InputSystem.dll" />
+		<Reference Private="false" Include="Unity.TextMeshPro" HintPath="$(GameManaged)/Unity.TextMeshPro.dll" />
+		<Reference Private="false" Include="UnityEngine.AudioModule" HintPath="$(GameManaged)/UnityEngine.AudioModule.dll" />
+		<Reference Private="false" Include="UnityEngine.CoreModule" HintPath="$(GameManaged)/UnityEngine.CoreModule.dll" />
+		<Reference Private="false" Include="UnityEngine" HintPath="$(GameManaged)/UnityEngine.dll" />
+		<Reference Private="false" Include="UnityEngine.UI" HintPath="$(GameManaged)/UnityEngine.UI.dll" />
+	</ItemGroup>
+
+	<!-- Other Files -->
+	<ItemGroup>
+		<None Include="changelog.md" CopyToOutputDirectory="PreserveNewest" />
+		<None Include="manifest.json" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
+	<!-- Target Automation -->
+	<ItemGroup>
+		<VersioningTask_In Include="$(MSBuildThisFileFullPath)" />
+		<VersioningTask_In Include="changelog.md" />
+		<VersioningTask_Out DropRevision="never" Include="$(MSBuildThisFileFullPath)" />
+		<VersioningTask_Out DropRevision="keep" Include="manifest.json" />
+
+		<!--<TargetPublicizeItems Include="$(GameManaged)/Assembly-CSharp.dll" />-->
+
+		<TargetMergeItems Include="$(SolutionDir)/@Shared/UnityMod-net2.1.dll" />
+
+		<TargetCopyTarget Include="$(ModFolder)/$(TargetName)/" />
+
+		<TargetZipItems Include="$(ModFolder)/$(TargetName)/$(TargetName).dll" />
+		<TargetZipItems Include="$(ModFolder)/$(TargetName)/changelog.md" />
+		<TargetZipItems Include="$(ModFolder)/$(TargetName)/manifest.json" />
+	</ItemGroup>
+</Project>
