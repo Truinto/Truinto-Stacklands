@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.2]
+- fixed foils; they stay foiled now and have a 2% chance to produce more foils
+
 ## [1.0.1]
 - fixed cards getting stuck in greenhouse
 - fixed spoilage on island board

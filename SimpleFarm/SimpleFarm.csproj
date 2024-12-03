@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Version>1.0.1.4</Version>
+		<Version>1.0.2.0</Version>
 		<AssemblyName>$(ProjectName)</AssemblyName>
 		<RootNamespace>$(ProjectName)NS</RootNamespace>
 		<TargetFramework>netstandard2.1</TargetFramework>
@@ -11,7 +11,7 @@
 
 	<ItemGroup>
 		<Reference Private="false" Include="0Harmony" HintPath="$(GameManaged)/0Harmony.dll" />
-		<Reference Private="false" Include="GameScripts" HintPath="$(GameManaged)/GameScripts.dll" />
+		<Reference Private="false" Include="GameScripts" HintPath="$(GameManaged)/GameScripts_public.dll" />
 		<Reference Private="false" Include="Mono.Cecil" HintPath="$(GameManaged)/Mono.Cecil.dll" />
 		<Reference Private="false" Include="MonoMod.RuntimeDetour" HintPath="$(GameManaged)/MonoMod.RuntimeDetour.dll" />
 		<Reference Private="false" Include="MonoMod.Utils" HintPath="$(GameManaged)/MonoMod.Utils.dll" />
@@ -42,7 +42,7 @@
 		<VersioningTask_Out DropRevision="never" Include="$(MSBuildThisFileFullPath)" />
 		<VersioningTask_Out DropRevision="keep" Include="manifest.json" />
 
-		<!--<TargetPublicizeItems Include="$(GameManaged)/Assembly-CSharp.dll" />-->
+		<TargetPublicizeItems Include="$(GameManaged)/GameScripts.dll" />
 
 		<TargetMergeItems Include="$(SolutionDir)/@Shared/UnityMod-net2.1.dll" />
 

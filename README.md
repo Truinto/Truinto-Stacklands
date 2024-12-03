@@ -3,7 +3,10 @@ Mods for Stacklands
 
 Simple Farm
 -----------
-Makes it so gardens and farms keep their crop. It will only throw out the extra crop.
-Additionally; crops like apples produce apples, instead of apple trees.
+Makes it so gardens and farms keep their crop (like greenhouses). It will only throw out the extra crop.
 
-Very future proof. Should work forever. Full compatiblity with other mods.
+Additionally:
+- crops like apples produce apples, instead of apple trees
+- foil cards stay foiled
+- greenhouse produce 3 cards, if food value is 1
+- sticks produce stick and tree
