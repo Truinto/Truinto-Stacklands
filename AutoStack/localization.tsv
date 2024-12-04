@@ -1,0 +1,6 @@
+Term	Notes	English
+hotpot_capacity		Hotpot Capacity
+chest_capacity		Coin Chest Capacity
+resourcechest_capacity		Resource Chest Capacity
+resourcechest_cardlimit		Resource Chest Limit
+resourcechest_cardlimit_tt		Count resources in chests toward card limit

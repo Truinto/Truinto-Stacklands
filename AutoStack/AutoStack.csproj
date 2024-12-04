@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Version>1.0.2.0</Version>
+		<Version>1.0.0.15</Version>
 		<AssemblyName>$(ProjectName)</AssemblyName>
 		<RootNamespace>$(ProjectName)NS</RootNamespace>
 		<TargetFramework>netstandard2.1</TargetFramework>
@@ -33,6 +33,7 @@
 	<ItemGroup>
 		<None Include="changelog.md" CopyToOutputDirectory="PreserveNewest" />
 		<None Include="manifest.json" CopyToOutputDirectory="PreserveNewest" />
+		<None Include="localization.tsv" CopyToOutputDirectory="PreserveNewest" />
 	</ItemGroup>
 
 	<!-- Target Automation -->

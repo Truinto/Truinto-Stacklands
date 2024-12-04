@@ -1,71 +1,52 @@
 ﻿global using HarmonyLib;
-using UnityEngine;
 
-namespace SimpleFarmNS
+namespace AutoStackNS
 {
-    public class SimpleFarm : Mod
+    public class AutoStack : Mod
     {
         public static Mod Instance = null!;
 
         public void Awake()
         {
             Instance = this;
-            PatchSafe(typeof(Patch_Greenhouse));
+
+            CreateSetting("hotpot_capacity", 10000);
+            CreateSetting("chest_capacity", 10000);
+            CreateSetting("resourcechest_capacity", 10000);
+            CreateSetting("resourcechest_cardlimit", false, restartAfterChange: true);
+            Config.OnSave = OnSettingsChanged;
+
+            PatchSafe(typeof(Patch_Hotpot));
+            PatchSafe(typeof(Patch_SellHotkey));
+            if (!Config.GetValue<bool>("resourcechest_cardlimit"))
+                PatchSafe(typeof(Patch_ResourceChestLimit));
             Logger.Log($"Awake!");
         }
 
         public override void Ready()
         {
-            Config.OnSave = OnSettingsChanged;
-
             //var cards = WorldManager.instance.CardDataPrefabs;
+            //var blueprints = WorldManager.instance.BlueprintPrefabs;
 
-            var blueprints = WorldManager.instance.BlueprintPrefabs;
-            foreach (var blueprint in blueprints)
-            {
-                if (blueprint is not BlueprintGrowth growth)
-                    continue;
-
-                foreach (var subprint in growth.Subprints)
-                {
-                    if (subprint.RequiredCards != null
-                        && subprint.RequiredCards.Length == 2
-                        && subprint.RequiredCards[1] is "garden" or "farm" or "greenhouse"
-                        && subprint.ExtraResultCards != null
-                        && subprint.ExtraResultCards.Length > 0)
-                    {
-                        // replace food trees and bushes with just the food
-                        var card_in = subprint.RequiredCards[0];
-                        if (subprint.ExtraResultCards.Length == 1)
-                        {
-                            if (card_in is "stick")
-                                subprint.ExtraResultCards = ["stick", "tree"];
-                            else
-                                subprint.ExtraResultCards = [card_in, card_in];
-                        }
-
-                        // greenhouse boosts
-                        if (subprint.RequiredCards[1] is "greenhouse")
-                        {
-                            int foodvalue = WorldManager.instance.GetCardPrefab(card_in, false) is Food food ? food.FoodValue : 0;
-                            if (foodvalue == 1)
-                            {
-                                Array.Resize(ref subprint.ExtraResultCards, subprint.ExtraResultCards.Length + 1);
-                                subprint.ExtraResultCards[^1] = card_in;
-                            }
-                            //subprint.Time = Math.Max(10f, subprint.Time - 10f);
-                        }
-                    }
-
-                    Logger.Log($"{subprint.RequiredCards?.Join()} => {subprint.ExtraResultCards?.Join()}");
-                }
-            }
-
+            OnSettingsChanged();
+            Loc = null;
+            SokLoc.instance.LanguageChanged += LoadFallbackTranslation;
             Logger.Log($"Ready!");
         }
 
         public void OnSettingsChanged()
         {
+            Logger.Log($"Updating capacities...");
+            var cards = WorldManager.instance.CardDataPrefabs;
+            foreach (var card in cards)
+            {
+                if (card is Hotpot pot) //hotpot
+                    pot.MaxFoodValue = Config.GetValue<int>("hotpot_capacity"); // this is not copied to instances, because it's a private field!
+                if (card is Chest chest)    //coin_chest, shell_chest
+                    chest.MaxCoinCount = Config.GetValue<int>("chest_capacity");
+                if (card is ResourceChest chest2)   //resource_chest
+                    chest2.MaxResourceCount = Config.GetValue<int>("resourcechest_capacity");
+            }
         }
 
         #region Helpers
