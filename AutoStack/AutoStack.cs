@@ -1,4 +1,8 @@
 ﻿global using HarmonyLib;
+global using Shared;
+global using System.Reflection;
+global using System.Reflection.Emit;
+global using UnityEngine;
 
 namespace AutoStackNS
 {
@@ -10,23 +14,46 @@ namespace AutoStackNS
         {
             Instance = this;
 
+            CreateSetting("shiftdrag_count", 10);
             CreateSetting("hotpot_capacity", 10000);
             CreateSetting("chest_capacity", 10000);
             CreateSetting("resourcechest_capacity", 10000);
             CreateSetting("resourcechest_cardlimit", false, restartAfterChange: true);
+            CreateSetting("resourcechest_allowmore", true, restartAfterChange: true);
+            CreateSetting("hotpot_ischest", true, restartAfterChange: true);
+            CreateSetting("hotpot_workmesshall", true, restartAfterChange: true);
             Config.OnSave = OnSettingsChanged;
 
-            PatchSafe(typeof(Patch_Hotpot));
-            PatchSafe(typeof(Patch_SellHotkey));
-            if (!Config.GetValue<bool>("resourcechest_cardlimit"))
-                PatchSafe(typeof(Patch_ResourceChestLimit));
+            PatchSafe(typeof(Fix_BounchCrash));
+            PatchSafe(typeof(Patch_ClickItem));
+            PatchSafe(typeof(Patch_DragItem));
+            PatchSafe(typeof(Patch_HotpotMaxValue));
+            PatchSafe(typeof(Patch_HotpotIsChest), Config.GetValue<bool>("hotpot_ischest"));
+            PatchSafe(typeof(Patch_HotpotMessHall), Config.GetValue<bool>("hotpot_workmesshall"));
+            PatchSafe(typeof(Patch_Hotkeys));
+            PatchSafe(typeof(Patch_BreedingPen));
+            PatchSafe(typeof(Patch_ResourceChestLimit), !Config.GetValue<bool>("resourcechest_cardlimit"));
+            PatchSafe(typeof(Patch_ResourceChestAllowed), Config.GetValue<bool>("resourcechest_allowmore"));
+            PatchSafe(typeof(Patch_VillagerTypeOverride));
             Logger.Log($"Awake!");
         }
 
         public override void Ready()
         {
-            //var cards = WorldManager.instance.CardDataPrefabs;
             //var blueprints = WorldManager.instance.BlueprintPrefabs;
+            //var cards = WorldManager.instance.CardDataPrefabs;
+            //foreach (var card in cards)
+            //{
+            //    if (card is BaseVillager vill)
+            //        Logger.Log($"{vill.Id}: HP={vill.BaseCombatStats.MaxHealth} spd={vill.BaseCombatStats.AttackSpeed} atk={vill.BaseCombatStats.AttackDamage} def={vill.BaseCombatStats.Defence} special={vill.BaseCombatStats.SpecialHits.Join(f => $"{f.Chance:P0}:{f.HitType}:{f.Target}")}");
+            //    else if (card is Equipable item)
+            //        Logger.Log($"{item.Id}: {item.MyStats.SpecialHits.Join(f => f.GetText())}");
+            //    else if (card is WaterTreatmentPlant waterTreatmentPlant)
+            //        waterTreatmentPlant.HarvestTime = 10f;
+            //    else if (card is Landmark land)
+            //        land.RequirementHolders.ForEach(f => f.NegativeResults.Clear());
+            //}
+            //WorldManager.instance.actionTimeBases.RemoveAll(f => f.BaseSpeed == 1.25f);
 
             OnSettingsChanged();
             Loc = null;
@@ -36,6 +63,8 @@ namespace AutoStackNS
 
         public void OnSettingsChanged()
         {
+            Patch_DragItem.DragCount = Config.GetValue<int>("shiftdrag_count");
+
             Logger.Log($"Updating capacities...");
             var cards = WorldManager.instance.CardDataPrefabs;
             foreach (var card in cards)
@@ -114,8 +143,10 @@ namespace AutoStackNS
             } catch (Exception) { }
         }
 
-        internal bool PatchSafe(Type patch)
+        internal bool PatchSafe(Type patch, bool enabled = true)
         {
+            if (!enabled)
+                return false;
             try
             {
                 Logger.Log($"Patching {patch.Name}");

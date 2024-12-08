@@ -33,6 +33,7 @@ namespace SimpleFarmNS
                                 __instance.allResultCards[i].SetFoil();
                         }
                     }
+                    //for (int i = 0; i < __instance.allResultCards.Count; i++) __instance.allResultCards[i].SetFoil();
                 }
 
                 return stack || rootCard.CardData.Id is "garden" or "farm";

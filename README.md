@@ -13,6 +13,13 @@ Additionally:
 
 Stacks n Capacity (AutoStack)
 -----------
+QoL for stacking and chests.
+
 - set coins, resources, and hotpot to 10000 units
 - items in resource chests don't count against card limit
 - selling cards with backspace sends the coins to chests
+- shift dragging resource chests will dispense and move its contents instead
+- make Hotpots act like chests for all food (item magnet)
+- allow Hotpot to work while parent is Mess Hall
+- animals stay in breeding pen
+- press shift while equipping items to keep villager type (mage, archer, ...)

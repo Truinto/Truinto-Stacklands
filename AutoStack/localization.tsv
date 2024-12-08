@@ -4,3 +4,10 @@ chest_capacity		Coin Chest Capacity
 resourcechest_capacity		Resource Chest Capacity
 resourcechest_cardlimit		Resource Chest Limit
 resourcechest_cardlimit_tt		Count resources in chests toward card limit
+resourcechest_allowmore		Resource Chest allow more
+hotpot_ischest		Hotpot like chests
+hotpot_ischest_tt		Food will be send and stack onto Hotpots
+hotpot_workmesshall		Hotpot works always
+hotpot_workmesshall_tt		Can absorb food items, while stacked on Mess Hall
+shiftdrag_count		Resource Chest spawn x items
+shiftdrag_count_tt		How many resources spawn from chests, when used with SHIFT

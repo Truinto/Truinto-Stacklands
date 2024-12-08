@@ -133,8 +133,10 @@ namespace SimpleFarmNS
             } catch (Exception) { }
         }
 
-        internal bool PatchSafe(Type patch)
+        internal bool PatchSafe(Type patch, bool enabled = true)
         {
+            if (!enabled)
+                return false;
             try
             {
                 Logger.Log($"Patching {patch.Name}");
