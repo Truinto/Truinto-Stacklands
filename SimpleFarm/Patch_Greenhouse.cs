@@ -18,7 +18,7 @@ namespace SimpleFarmNS
             tool.InsertAfter(patch);
             return tool;
 
-            static bool patch(bool stack, GameCard rootCard, List<GameCard> involvedCards, Subprint print, BlueprintGrowth __instance)
+            static bool patch(bool __stack, GameCard rootCard, List<GameCard> involvedCards, Subprint print, BlueprintGrowth __instance)
             {
                 // if source card was foil, make result card foil and 2% chance on any other card being foil
                 if (print.ExtraResultCards != null
@@ -36,7 +36,7 @@ namespace SimpleFarmNS
                     //for (int i = 0; i < __instance.allResultCards.Count; i++) __instance.allResultCards[i].SetFoil();
                 }
 
-                return stack || rootCard.CardData.Id is "garden" or "farm";
+                return __stack || rootCard.CardData.Id is "garden" or "farm";
             }
         }
     }

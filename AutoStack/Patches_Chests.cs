@@ -19,7 +19,7 @@
             tool.InsertAfter(patch);
             return tool;
 
-            static bool patch(bool stack)
+            static bool patch(bool __stack)
             {
                 return true;
             }

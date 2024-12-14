@@ -10,7 +10,7 @@ namespace AutoStackNS
     {
         public static bool Prefix(GameCard __instance)
         {
-            AutoStack.Log($"clicked: {__instance.CardData.Id}");
+            //AutoStack.Log($"clicked: {__instance.CardData.Id}");
             return true;
         }
     }
@@ -24,7 +24,7 @@ namespace AutoStackNS
         public static int DragCount = 10;
         public static bool Prefix(GameCard __instance)
         {
-            AutoStack.Log($"dragging: {__instance.CardData.Id}");
+            //AutoStack.Log($"dragging: {__instance.CardData.Id}");
 
             if (__instance.CardData is ResourceChest chest && chest.ResourceCount > 0)
             {

@@ -22,6 +22,7 @@ namespace AutoStackNS
             CreateSetting("resourcechest_allowmore", true, restartAfterChange: true);
             CreateSetting("hotpot_ischest", true, restartAfterChange: true);
             CreateSetting("hotpot_workmesshall", true, restartAfterChange: true);
+            CreateSetting("quarry_stackdeposits", true, restartAfterChange: true);
             Config.OnSave = OnSettingsChanged;
 
             PatchSafe(typeof(Fix_BounchCrash));
@@ -35,20 +36,21 @@ namespace AutoStackNS
             PatchSafe(typeof(Patch_ResourceChestLimit), !Config.GetValue<bool>("resourcechest_cardlimit"));
             PatchSafe(typeof(Patch_ResourceChestAllowed), Config.GetValue<bool>("resourcechest_allowmore"));
             PatchSafe(typeof(Patch_VillagerTypeOverride));
+            PatchSafe(typeof(Patch_StackHarvestable), Config.GetValue<bool>("quarry_stackdeposits"));
             Logger.Log($"Awake!");
         }
 
         public override void Ready()
         {
             //var blueprints = WorldManager.instance.BlueprintPrefabs;
-            //var cards = WorldManager.instance.CardDataPrefabs;
+            var cards = WorldManager.instance.CardDataPrefabs;
+
+            //Logger.Log("card print out:");
+            //Console.WriteLine($"ID\ttype\tcardtype\tbuilding\tstackcards");
             //foreach (var card in cards)
             //{
-            //    if (card is BaseVillager vill)
-            //        Logger.Log($"{vill.Id}: HP={vill.BaseCombatStats.MaxHealth} spd={vill.BaseCombatStats.AttackSpeed} atk={vill.BaseCombatStats.AttackDamage} def={vill.BaseCombatStats.Defence} special={vill.BaseCombatStats.SpecialHits.Join(f => $"{f.Chance:P0}:{f.HitType}:{f.Target}")}");
-            //    else if (card is Equipable item)
-            //        Logger.Log($"{item.Id}: {item.MyStats.SpecialHits.Join(f => f.GetText())}");
-            //    else if (card is WaterTreatmentPlant waterTreatmentPlant)
+            //    Console.WriteLine($"{card.Id}\t{card.GetType().Name}\t{card.MyCardType}\t{card.IsBuilding}\t{(card as Harvestable)?.CanHaveCardIds.Join()}");
+            //    if (card is WaterTreatmentPlant waterTreatmentPlant)
             //        waterTreatmentPlant.HarvestTime = 10f;
             //    else if (card is Landmark land)
             //        land.RequirementHolders.ForEach(f => f.NegativeResults.Clear());

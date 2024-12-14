@@ -29,12 +29,11 @@ namespace AutoStackNS
         {
             var tool = new TranspilerTool(instructions, generator, original);
             var card_list = tool.GetLocal(typeof(List<GameCard>));
-            while (!tool.IsLast)
-            {
-                if (tool.IsStloc(card_list))
-                    tool.InsertBefore(patch);
-                tool++;
-            }
+
+            tool.Last();
+            tool.Rewind(card_list, loadIsTrue_storeIsFalse: false);
+            tool.InsertBefore(patch);
+
             return tool;
 
             static List<GameCard> patch(List<GameCard> stack, GameCard card)
@@ -75,9 +74,9 @@ namespace AutoStackNS
 
             return tool;
 
-            static bool patch(CardData stack)
+            static bool patch(CardData __stack)
             {
-                return stack is HeavyFoundation or MessHall or Food;
+                return __stack is HeavyFoundation or MessHall or Food;
             }
         }
     }

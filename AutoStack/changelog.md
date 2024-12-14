@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.2]
+- added: resources stack on resource camps
+
 ## [1.0.1]
 - added: shift dragging resource chests will dispense and move its contents instead
 - added: Hotpots act like chests for all food (item magnet)

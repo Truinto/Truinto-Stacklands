@@ -11,3 +11,5 @@ hotpot_workmesshall		Hotpot works always
 hotpot_workmesshall_tt		Can absorb food items, while stacked on Mess Hall
 shiftdrag_count		Resource Chest spawn x items
 shiftdrag_count_tt		How many resources spawn from chests, when used with SHIFT
+quarry_stackdeposits		Stack resources on camps
+quarry_stackdeposits_tt		Should deposits (trees, ore) stack on quarries (lumbercamp, mine)

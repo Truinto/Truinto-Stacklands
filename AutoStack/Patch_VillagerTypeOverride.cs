@@ -25,11 +25,11 @@ namespace AutoStackNS
             tool.InsertAfter(patch);
             return tool;
 
-            static bool patch(bool stack)
+            static bool patch(bool __stack)
             {
                 if (InputController.instance.GetKey(UnityEngine.InputSystem.Key.LeftShift))
                     return false;
-                return stack;
+                return __stack;
             }
         }
     }
