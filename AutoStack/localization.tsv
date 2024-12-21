@@ -5,11 +5,13 @@ resourcechest_capacity		Resource Chest Capacity
 resourcechest_cardlimit		Resource Chest Limit
 resourcechest_cardlimit_tt		Count resources in chests toward card limit
 resourcechest_allowmore		Resource Chest allow more
+resourcechest_controlledoutput		Resource Chest Controlled
+resourcechest_controlledoutput_tt		Resources output instantly and limit to 2 units per type; junctions work normal
 hotpot_ischest		Hotpot like chests
 hotpot_ischest_tt		Food will be send and stack onto Hotpots
 hotpot_workmesshall		Hotpot works always
 hotpot_workmesshall_tt		Can absorb food items, while stacked on Mess Hall
-shiftdrag_count		Resource Chest spawn x items
-shiftdrag_count_tt		How many resources spawn from chests, when used with SHIFT
+shiftdrag_count		Chest spawn x items
+shiftdrag_count_tt		How many resources spawn from resource chests, when used with SHIFT
 quarry_stackdeposits		Stack resources on camps
 quarry_stackdeposits_tt		Should deposits (trees, ore) stack on quarries (lumbercamp, mine)

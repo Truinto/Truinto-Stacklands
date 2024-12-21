@@ -20,6 +20,7 @@ namespace AutoStackNS
             CreateSetting("resourcechest_capacity", 10000);
             CreateSetting("resourcechest_cardlimit", false, restartAfterChange: true);
             CreateSetting("resourcechest_allowmore", true, restartAfterChange: true);
+            CreateSetting("resourcechest_controlledoutput", false, restartAfterChange: true);
             CreateSetting("hotpot_ischest", true, restartAfterChange: true);
             CreateSetting("hotpot_workmesshall", true, restartAfterChange: true);
             CreateSetting("quarry_stackdeposits", true, restartAfterChange: true);
@@ -35,8 +36,10 @@ namespace AutoStackNS
             PatchSafe(typeof(Patch_BreedingPen));
             PatchSafe(typeof(Patch_ResourceChestLimit), !Config.GetValue<bool>("resourcechest_cardlimit"));
             PatchSafe(typeof(Patch_ResourceChestAllowed), Config.GetValue<bool>("resourcechest_allowmore"));
+            PatchSafe(typeof(Patch_ResourceChestOutput), Config.GetValue<bool>("resourcechest_controlledoutput"));
             PatchSafe(typeof(Patch_VillagerTypeOverride));
             PatchSafe(typeof(Patch_StackHarvestable), Config.GetValue<bool>("quarry_stackdeposits"));
+            PatchSafe(typeof(Patch_EnableCityView));
             Logger.Log($"Awake!");
         }
 
