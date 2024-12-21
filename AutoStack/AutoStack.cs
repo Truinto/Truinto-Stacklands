@@ -60,6 +60,15 @@ namespace AutoStackNS
             //}
             //WorldManager.instance.actionTimeBases.RemoveAll(f => f.BaseSpeed == 1.25f);
 
+            // make all city cards sellable on main island
+            foreach (var card in cards)
+            {
+                if (card.CardUpdateType is CardUpdateType.Cities
+                    && card.Value == -1
+                    && card.Id is not ("time_machine" or "event_industrial_revolution"))
+                    card.Value = 0;
+            }
+
             OnSettingsChanged();
             Loc = null;
             SokLoc.instance.LanguageChanged += LoadFallbackTranslation;

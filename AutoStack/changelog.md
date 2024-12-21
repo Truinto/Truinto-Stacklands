@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.4]
+- unlocked city ideas
+
 ## [1.0.3]
 - added: resource chests output instantly and limit to 2 units per type (off by default)
 - unlocked view modes (energy, sewers)

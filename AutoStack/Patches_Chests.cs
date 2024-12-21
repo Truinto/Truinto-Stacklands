@@ -71,28 +71,13 @@
                     return;
                 }
 
-                // wait for custom timer
-                if (instance.TimerRunning && instance.TimerActionId is "wait_one_second")
-                    return;
-
-                // cancel any other timer
-                instance.StopTimer();
-
-                // stop if game is paused
-                if (WorldManager.instance.TimeScale <= 0f)
-                    return;
-
-                // stop if target is working
-                if (target_card.TimerRunning && target_card.TimerActionId is not "stop_energy")
-                    return;
-
-                // stop if target is satisfied
-                if (target_card.GetStackCount() >= 10 || GetStackCardCount(target_card, __instance.HeldCardId) >= 2)
-                    return;
-
-                __instance.OutputCard();
-
-                instance.StartTimer(1f, () => { }, "wait_one_second", "wait_one_second", withStatusBar: false);
+                if (instance.TimerRunning && instance.TimerActionId is not "wait_one_second"
+                    || WorldManager.instance.TimeScale <= 0f    // stop if game is paused
+                    || target_card.TimerRunning && target_card.TimerActionId is not "stop_energy"   // stop if target is working
+                    || target_card.GetStackCount() >= 10 || GetStackCardCount(target_card, __instance.HeldCardId) >= 2)  // stop if target is satisfied                    
+                    instance.StopTimer();
+                else
+                    instance.StartTimer(1f, __instance.OutputCard, "wait_one_second", "wait_one_second", withStatusBar: false);
             }
         }
 
