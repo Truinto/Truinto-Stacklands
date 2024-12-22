@@ -24,6 +24,7 @@ namespace AutoStackNS
             CreateSetting("hotpot_ischest", true, restartAfterChange: true);
             CreateSetting("hotpot_workmesshall", true, restartAfterChange: true);
             CreateSetting("quarry_stackdeposits", true, restartAfterChange: true);
+            CreateSetting("unlock_city", true, restartAfterChange: true);
             Config.OnSave = OnSettingsChanged;
 
             PatchSafe(typeof(Fix_BounchCrash));
@@ -32,6 +33,7 @@ namespace AutoStackNS
             PatchSafe(typeof(Patch_HotpotMaxValue));
             PatchSafe(typeof(Patch_HotpotIsChest), Config.GetValue<bool>("hotpot_ischest"));
             PatchSafe(typeof(Patch_HotpotMessHall), Config.GetValue<bool>("hotpot_workmesshall"));
+            PatchSafe(typeof(Patch_HotpotPriority));
             PatchSafe(typeof(Patch_Hotkeys));
             PatchSafe(typeof(Patch_BreedingPen));
             PatchSafe(typeof(Patch_ResourceChestLimit), !Config.GetValue<bool>("resourcechest_cardlimit"));
@@ -39,7 +41,7 @@ namespace AutoStackNS
             PatchSafe(typeof(Patch_ResourceChestOutput), Config.GetValue<bool>("resourcechest_controlledoutput"));
             PatchSafe(typeof(Patch_VillagerTypeOverride));
             PatchSafe(typeof(Patch_StackHarvestable), Config.GetValue<bool>("quarry_stackdeposits"));
-            PatchSafe(typeof(Patch_EnableCityView));
+            PatchSafe(typeof(Patch_EnableCityView), Config.GetValue<bool>("unlock_city"));
             Logger.Log($"Awake!");
         }
 

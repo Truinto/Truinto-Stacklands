@@ -18,13 +18,14 @@ QoL for stacking and chests. Check the settings!
 - set coins, resources, and hotpot to 10000 units
 - items in resource chests don't count against card limit
 - resource chests allow more card types
-- press shift to drag resouces right out of chests!
+- press SHIFT to drag resouces right out of chests! (CTRL for a single unit)
 - press X to send target item to chests/stacks
 - selling cards with backspace sends the coins to chests
 - make Hotpots act like chests for all food (item magnet)
 - allow Hotpot to work while parent is Mess Hall
 - animals stay in breeding pen
-- press shift while equipping items to keep villager type (mage, archer, ...)
+- press SHIFT while equipping items to keep villager type (mage, archer, ...)
 - resources stack on resource camps
 - resources output instantly and limit to 2 units per type (off by default)
 - unlocked view modes (energy, sewers)
+- unlocked city ideas

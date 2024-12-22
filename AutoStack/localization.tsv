@@ -15,3 +15,4 @@ shiftdrag_count		Chest spawn x items
 shiftdrag_count_tt		How many resources spawn from resource chests, when used with SHIFT
 quarry_stackdeposits		Stack resources on camps
 quarry_stackdeposits_tt		Should deposits (trees, ore) stack on quarries (lumbercamp, mine)
+unlock_city		Unlock city ideas

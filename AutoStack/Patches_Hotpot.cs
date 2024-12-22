@@ -80,4 +80,32 @@ namespace AutoStackNS
             }
         }
     }
+
+    /// <summary>
+    /// Make Hotpot priority, even when food value is greater than 100.
+    /// </summary>
+    [HarmonyPatch]
+    public static class Patch_HotpotPriority
+    {
+        public static MethodBase TargetMethod()
+        {
+            return TranspilerTool.GetLambda(
+                AccessTools.Method(typeof(EndOfMonthCutscenes), nameof(EndOfMonthCutscenes.GetFoodToUseUp)),
+                typeof(int), [typeof(Food)]
+                )!;
+        }
+
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator, MethodBase original)
+        {
+            var tool = new TranspilerTool(instructions, generator, original);
+            tool.Seek(typeof(Food), nameof(Food.FoodValue));
+            tool.InsertAfter(patch);
+            return tool;
+
+            static int patch(int __stack)
+            {
+                return Math.Min(80, __stack);
+            }
+        }
+    }
 }
