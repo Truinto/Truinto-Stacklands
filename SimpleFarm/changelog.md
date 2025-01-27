@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.3]
+- added option for extra crop, regardless of food value
+
 ## [1.0.2]
 - fixed foils; they stay foiled now and have a 2% chance to produce more foils
 

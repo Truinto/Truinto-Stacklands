@@ -10,6 +10,8 @@ namespace SimpleFarmNS
         public void Awake()
         {
             Instance = this;
+            CreateSetting("greenhouse_extra_food", false, restartAfterChange: true);
+
             PatchSafe(typeof(Patch_Greenhouse));
             Logger.Log($"Awake!");
         }
@@ -17,6 +19,7 @@ namespace SimpleFarmNS
         public override void Ready()
         {
             Config.OnSave = OnSettingsChanged;
+            bool extra_food = Config.GetValue<bool>("greenhouse_extra_food");
 
             //var cards = WorldManager.instance.CardDataPrefabs;
 
@@ -48,7 +51,7 @@ namespace SimpleFarmNS
                         if (subprint.RequiredCards[1] is "greenhouse")
                         {
                             int foodvalue = WorldManager.instance.GetCardPrefab(card_in, false) is Food food ? food.FoodValue : 0;
-                            if (foodvalue == 1)
+                            if (foodvalue == 1 || extra_food)
                             {
                                 Array.Resize(ref subprint.ExtraResultCards, subprint.ExtraResultCards.Length + 1);
                                 subprint.ExtraResultCards[^1] = card_in;
